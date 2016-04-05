@@ -1,0 +1,27 @@
+Character: !
+ASCII Value: 33
+Frequency: 1
+Encoded Bit Representation: 011
+
+Character: e
+ASCII Value: 101
+Frequency: 1
+Encoded Bit Representation: 001
+
+Character: H
+ASCII Value: 72
+Frequency: 1f
+Encoded Bit Representation: 000
+
+Character: l
+ASCII Value: 108
+Frequency: 2
+Encoded Bit Representation: 1
+
+Character: o
+ASCII Value: 111
+Frequency: 1
+Encoded Bit Representation: 010
+
+Encoded message:
+null000nullnullnullnull
