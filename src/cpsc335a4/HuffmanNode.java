@@ -30,6 +30,6 @@ public class HuffmanNode implements Comparable<HuffmanNode> {
 	@Override
 	public int compareTo(HuffmanNode other) 
 	{
-		return occurances - other.occurances;
+		return Integer.compare(occurances, other.occurances);
 	}
 }
