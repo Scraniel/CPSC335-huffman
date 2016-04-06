@@ -9,6 +9,8 @@ public class HuffmanTree
 	private PriorityQueue<HuffmanNode> trees;
 	private ArrayList<String> pathToLeaves;
 	public HashMap<Character, Integer> occurances;
+	public int numNodes = 0;
+	public int numCharNodes = 0;
 	
 	public HuffmanTree()
 	{
@@ -22,6 +24,8 @@ public class HuffmanTree
 	{
 		trees.clear();
 		occurances = new HashMap<>();
+		numNodes = 0;
+		numCharNodes = 0; 
 		
 		// Getting character counts
 		for(int i = 0; i < toCompress.length(); i++)
@@ -36,7 +40,11 @@ public class HuffmanTree
 		
 		// Creating initial nodes
 		for(char c : occurances.keySet())
+		{
 			trees.add(new HuffmanNode(c, occurances.get(c)));
+			numNodes++;
+			numCharNodes++;
+		}
 		
 		buildTree();		
 		return findEncodings();
@@ -52,6 +60,7 @@ public class HuffmanTree
 			HuffmanNode secondMin = trees.remove();
 			
 			trees.add(new HuffmanNode(firstMin, secondMin));
+			numNodes++;
 		}
 	}
 	
@@ -88,5 +97,21 @@ public class HuffmanTree
 			getLeaves(toSearch.right, currentPath + '0');
 		}
 			
+	}
+	
+	public int height()
+	{
+		return height(trees.peek());
+	}
+	private int height(HuffmanNode node)
+	{
+	    if (node == null)
+	    {
+	        return 0;
+	    }
+	    else
+	    {
+	        return 1 + Math.max(height(node.left), height(node.right));
+	    }
 	}
 }

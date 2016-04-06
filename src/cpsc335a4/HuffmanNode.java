@@ -27,6 +27,7 @@ public class HuffmanNode implements Comparable<HuffmanNode> {
 		this.occurances = occurances;
 	}
 	
+	// So we can use in PriorityQueue
 	@Override
 	public int compareTo(HuffmanNode other) 
 	{

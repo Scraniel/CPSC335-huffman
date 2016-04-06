@@ -37,8 +37,10 @@ public class a4 {
 			return;
 		}
 
-		System.out.println("Compressing string...");
+		System.out.println("Compressing file '"+ inputFilename +"'...");
+		double startTime = System.nanoTime();
 		HashMap<Character, String> encodings = tree.compress(content);
+		double endTime = System.nanoTime();
 		System.out.println("Writing to file '" + outputFilename +"'...");
 		
 		try {
@@ -68,21 +70,29 @@ public class a4 {
 			
 			writer.println("Encoded message:");
 			StringBuilder encodedMessage = new StringBuilder();
-			
+			String current;
 			for(int i = 0; i < content.length(); i++)
 			{
-				String current = encodings.get(content.charAt(i));
+				current = encodings.get(content.charAt(i));
 				encodedMessage.append(current);
-				writer.append(current);
-				writer.flush();
+				
 			}
 			float oldFileSize = content.getBytes(StandardCharsets.UTF_8).length;
 			float newFileSize = (float)encodedMessage.toString().length()/8.f;
 			
+			writer.append(encodedMessage);
+			writer.flush();
+			
 			System.out.println("Successfully compressed. See '" + outputFilename + "'.");
-			System.out.printf("\nOriginal file size (UTF-8): %1.1f bytes\n", oldFileSize);
+			
+			System.out.println("\n******************* STATISTICS *******************");
+			System.out.printf("Runtime: %1.1f ms\n", (endTime - startTime)/1000000);
+			System.out.printf("Original file size (UTF-8): %1.1f bytes\n", oldFileSize);
 			System.out.printf("New file size (Huffman): %1.1f bytes\n", newFileSize);
-			System.out.printf("Compression: %1.1f%%", ((oldFileSize - newFileSize)/oldFileSize) * 100);
+			System.out.printf("Compression rate: %1.1f%%\n", ((oldFileSize - newFileSize)/oldFileSize) * 100);
+			System.out.printf("Height of generated Huffman Tree: %d\n", tree.height());
+			System.out.printf("Number of character (leaf) nodes in generated Huffman Tree: %d\n", tree.numCharNodes);
+			System.out.printf("Total number of  nodes in generated Huffman Tree: %d", tree.numNodes);
 			
 			
 		} catch (FileNotFoundException e) {
